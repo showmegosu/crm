@@ -21,7 +21,7 @@ namespace Tourism.DAL
                 var reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    clientsList.Add(new ClientDto((int) reader[0], reader[1].ToString()));
+                    clientsList.Add(new ClientDto(){Id = (int) reader[0], Surname = reader[1].ToString()});
                 }
 
                 reader.Close();

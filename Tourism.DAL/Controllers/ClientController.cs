@@ -7,17 +7,20 @@ namespace Tourism.DAL.Controllers
     {
         private readonly ClientRepository _clientRepository;
 
-        #region .ctor
-
         public ClientController()
         {
             _clientRepository = new ClientRepository();
         }
 
-        #endregion
-
         // GET: api/v1/Client
-        public List<ClientDto> Get() => _clientRepository.GetAllClients();
+        public List<ClientDto> Get()
+        {
+            var result = new List<ClientDto>();
+            result.Add(new ClientDto(){Id = 1,Surname = "Mongo"});
+            result.Add(new ClientDto() { Id = 2, Surname = "Mongo2" });
+            return result;
+            //return _clientRepository.GetAllClients();
+        }
 
         // GET: api/Client/5
         public string Get(int id)
