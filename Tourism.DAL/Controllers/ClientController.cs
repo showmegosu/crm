@@ -15,7 +15,6 @@ namespace Tourism.DAL.Controllers
         // GET: api/v1/Client
         public List<ClientDto> Get()
         {
-            var result = new List<ClientDto>();
             return _clientRepository.GetAllClients();
         }
 
