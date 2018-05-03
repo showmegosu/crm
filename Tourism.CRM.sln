@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2037
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tourism.DAL", "Tourism.DAL\Tourism.DAL.csproj", "{DCA7799D-9F1D-432F-B870-CCE8872FCC84}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi", "Tourism.DAL\WebApi.csproj", "{DCA7799D-9F1D-432F-B870-CCE8872FCC84}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
