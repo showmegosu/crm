@@ -17,7 +17,7 @@ namespace Tourism.DAL.Controllers
         #endregion
 
         // GET: api/v1/Client
-        public List<Client> Get() => _clientRepository.GetAllClients();
+        public List<ClientDto> Get() => _clientRepository.GetAllClients();
 
         // GET: api/Client/5
         public string Get(int id)

@@ -4,17 +4,25 @@ namespace Tourism.DAL
 {
     public class Client
     {
-        public long Id { get; set; }
+        #region Properties
+
+        public int Id { get; set; }
         public string Surname { get; set; }
         public string Name { get; set; }
         public string FathersName { get; set; }
-        public List<object> PhoneNumbers { get; set; }
-        public List<object> Addresses { get; set; }
+        public List<string> PhoneNumbers { get; set; }
+        public List<string> Addresses { get; set; }
 
-        public Client(long id, string name)
+        #endregion
+
+        #region .ctor
+
+        public Client(int id, string surname)
         {
             Id = id;
-            Name = name;
+            Surname= surname;
         }
+
+        #endregion
     }
 }

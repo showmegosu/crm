@@ -6,9 +6,9 @@ namespace Tourism.DAL
 {
     public class ClientRepository
     {
-        public List<Client> GetAllClients()
+        public List<ClientDto> GetAllClients()
         {
-            var clientsList = new List<Client>();
+            var clientsList = new List<ClientDto>();
 
             var connectionString = "Data Source=.;Initial Catalog=CRM;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
@@ -21,7 +21,7 @@ namespace Tourism.DAL
                 var reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    clientsList.Add(new Client((int) reader[0], reader[1].ToString()));
+                    clientsList.Add(new ClientDto((int) reader[0], reader[1].ToString()));
                 }
 
                 reader.Close();
