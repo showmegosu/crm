@@ -10,32 +10,21 @@ namespace Tourism.DAL
         {
             var clientsList = new List<Client>();
 
-            var connectionString = "Data Source=(local);Initial Catalog=CRM;" + "Integrated Security=true";
+            var connectionString = "Data Source=.;Initial Catalog=CRM;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
             var queryString = "SELECT Client_Id, Surname from dbo.Clients";
 
             using (var connection = new SqlConnection(connectionString))
             {
                 var command = new SqlCommand(queryString, connection);
-
-                try
+                connection.Open();
+                var reader = command.ExecuteReader();
+                while (reader.Read())
                 {
-                    connection.Open();
-                    var reader = command.ExecuteReader();
-                    while (reader.Read())
-                    {
-                        clientsList.Add(new Client((int)reader[0], reader[1].ToString()));
-                    }
-
-                    reader.Close();
+                    clientsList.Add(new Client((int) reader[0], reader[1].ToString()));
                 }
 
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-
-                Console.ReadLine();
+                reader.Close();
             }
 
             return clientsList;
