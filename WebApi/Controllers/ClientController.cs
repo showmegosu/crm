@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
+using Tourism.DAL;
 
-namespace Tourism.DAL.Controllers
+namespace WebApi.Controllers
 {
     public class ClientController : ApiController
     {
