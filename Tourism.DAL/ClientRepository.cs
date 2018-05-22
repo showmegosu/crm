@@ -13,6 +13,7 @@ namespace Tourism.DAL
             if (connectionString == null) throw new ArgumentNullException(nameof(connectionString));
             _connectionString = connectionString;
         }
+
         public List<ClientDto> GetAllClients()
         {
             var clientsList = new List<ClientDto>();
