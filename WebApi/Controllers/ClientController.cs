@@ -9,12 +9,10 @@ namespace WebApi.Controllers
     {
         private readonly ClientRepository _clientRepository;
 
-        private readonly string _connectionString =
-            ConfigurationManager.ConnectionStrings["ClientRepository"].ConnectionString;
-
         public ClientController()
         {
-            _clientRepository = new ClientRepository(_connectionString);
+            var connectionString = ConfigurationManager.ConnectionStrings["ClientRepository"].ConnectionString;
+            _clientRepository = new ClientRepository(connectionString);
         }
 
         // GET: api/v1/Client
