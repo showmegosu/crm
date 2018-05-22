@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Configuration;
 using System.Web.Http;
 using Tourism.DAL;
 
@@ -8,9 +9,12 @@ namespace WebApi.Controllers
     {
         private readonly ClientRepository _clientRepository;
 
+        private readonly string _connectionString =
+            ConfigurationManager.ConnectionStrings["ClientRepository"].ConnectionString;
+
         public ClientController()
         {
-            _clientRepository = new ClientRepository();
+            _clientRepository = new ClientRepository(_connectionString);
         }
 
         // GET: api/v1/Client
