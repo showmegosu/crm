@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 
 namespace Tourism.DAL
@@ -34,6 +35,24 @@ namespace Tourism.DAL
             }
 
             return clientsList;
+        }
+
+        public void InsertClient(Client client)
+        {
+            var queryString = "INSERT INTO dbo.Clients (Surname,Name,Fathers_name) VALUES (@Surname,@Name,@FathersName);" +
+                              "SELECT @Client_Id = SCOPE_IDENTITY()";
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                var command = new SqlCommand(queryString, connection);
+                command.Parameters.AddWithValue("@Surname", client.Surname);
+                command.Parameters.AddWithValue("@Name", client.Name);
+                command.Parameters.AddWithValue("@FathersName", client.FathersName);
+                command.Parameters.Add("@Client_Id",SqlDbType.Int).Direction = ParameterDirection.Output;
+
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
         }
     }
 }

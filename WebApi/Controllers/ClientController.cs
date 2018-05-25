@@ -28,8 +28,9 @@ namespace WebApi.Controllers
         }
 
         // POST: api/Client
-        public void Post([FromBody]string value)
+        public void Post([FromBody]Client client)
         {
+            _clientRepository.InsertClient(client);
         }
 
         // PUT: api/Client/5
