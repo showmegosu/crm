@@ -37,6 +37,32 @@ namespace Tourism.DAL
             return clientsList;
         }
 
+        public Client GetClientById(int id)
+        {
+            var queryString = "SELECT Surname, Name, Fathers_name from dbo.Clients WHERE Client_Id=@id";
+
+                       using (var connection = new SqlConnection(_connectionString))
+            {
+                var command = new SqlCommand(queryString, connection);
+                command.Parameters.AddWithValue("@id", id);
+
+                connection.Open();
+                var reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    var client = new Client();
+                    client.Surname = reader[0].ToString();
+                    client.Name = reader[1].ToString();
+                    client.FathersName= reader[2].ToString();
+
+                    return client;
+                }
+
+                return null;
+            }
+        }
+        
+
         public void InsertClient(Client client)
         {
             var queryString = "INSERT INTO dbo.Clients (Surname,Name,Fathers_name) VALUES (@Surname,@Name,@FathersName);" +

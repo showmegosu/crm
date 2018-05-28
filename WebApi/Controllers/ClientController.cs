@@ -22,12 +22,12 @@ namespace WebApi.Controllers
         }
 
         // GET: api/Client/5
-        public string Get(int id)
+        public Client Get(int id)
         {
-            return "value";
+            return _clientRepository.GetClientById(id);
         }
 
-        // POST: api/Client
+        // POST: api/v1/Client
         public void Post([FromBody]Client client)
         {
             _clientRepository.InsertClient(client);

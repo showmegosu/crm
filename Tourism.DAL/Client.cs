@@ -16,5 +16,9 @@ namespace Tourism.DAL
             Id = id;
             Surname= surname;
         }
+        public Client()
+        {
+
+        }
     }
 }
