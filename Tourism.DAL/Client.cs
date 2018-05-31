@@ -18,7 +18,8 @@ namespace Tourism.DAL
         }
         public Client()
         {
-
+            PhoneNumbers = new List<string>();
+            Addresses = new List<string>();
         }
     }
 }

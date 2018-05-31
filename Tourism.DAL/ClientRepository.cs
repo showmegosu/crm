@@ -39,34 +39,51 @@ namespace Tourism.DAL
 
         public Client GetClientById(int id)
         {
-            var queryString = "SELECT Surname, Name, Fathers_name from dbo.Clients WHERE Client_Id=@id";
+            var queryString = "SELECT Surname, Name, Fathers_name from dbo.Clients WHERE Client_Id=@id;" +
+                              "SELECT Number from dbo.Phones WHERE Fk_Client_Id=@id;" +
+                              "SELECT Address from dbo.Addresses WHERE Fk_Client_Id=@id";
 
-                       using (var connection = new SqlConnection(_connectionString))
+            using (var connection = new SqlConnection(_connectionString))
             {
                 var command = new SqlCommand(queryString, connection);
                 command.Parameters.AddWithValue("@id", id);
 
                 connection.Open();
                 var reader = command.ExecuteReader();
+                var client = new Client();
                 while (reader.Read())
                 {
-                    var client = new Client();
                     client.Surname = reader[0].ToString();
                     client.Name = reader[1].ToString();
-                    client.FathersName= reader[2].ToString();
-
-                    return client;
+                    client.FathersName = reader[2].ToString();
                 }
 
-                return null;
+                if (reader.NextResult())
+                {
+                    while (reader.Read())
+                    {
+                        client.PhoneNumbers.Add(reader[0].ToString());
+                    }
+                }
+
+                if (reader.NextResult())
+                {
+                    while (reader.Read())
+                    {
+                        client.Addresses.Add(reader[0].ToString());
+                    }
+                }
+
+                return client;
             }
         }
-        
+
 
         public void InsertClient(Client client)
         {
-            var queryString = "INSERT INTO dbo.Clients (Surname,Name,Fathers_name) VALUES (@Surname,@Name,@FathersName);" +
-                              "SELECT @Client_Id = SCOPE_IDENTITY()";
+            var queryString =
+                "INSERT INTO dbo.Clients (Surname,Name,Fathers_name) VALUES (@Surname,@Name,@FathersName);" +
+                "SELECT @Client_Id = SCOPE_IDENTITY()";
 
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -74,7 +91,7 @@ namespace Tourism.DAL
                 command.Parameters.AddWithValue("@Surname", client.Surname);
                 command.Parameters.AddWithValue("@Name", client.Name);
                 command.Parameters.AddWithValue("@FathersName", client.FathersName);
-                command.Parameters.Add("@Client_Id",SqlDbType.Int).Direction = ParameterDirection.Output;
+                command.Parameters.Add("@Client_Id", SqlDbType.Int).Direction = ParameterDirection.Output;
 
                 connection.Open();
                 command.ExecuteNonQuery();
