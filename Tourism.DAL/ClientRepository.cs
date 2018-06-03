@@ -82,7 +82,7 @@ namespace Tourism.DAL
         public void InsertClient(Client client)
         {
             var queryString =
-                "INSERT INTO dbo.Clients (Surname,Name,Fathers_name) VALUES (@Surname,@Name,@FathersName);" +
+                "INSERT INTO dbo.Clients (Surname,Name,Fathers_name) output INSERTED.Client_Id VALUES (@Surname,@Name,@FathersName);" +
                 "SELECT @Client_Id = SCOPE_IDENTITY()";
 
             using (var connection = new SqlConnection(_connectionString))
@@ -94,7 +94,19 @@ namespace Tourism.DAL
                 command.Parameters.Add("@Client_Id", SqlDbType.Int).Direction = ParameterDirection.Output;
 
                 connection.Open();
-                command.ExecuteNonQuery();
+                int clientsId = (int)command.ExecuteScalar();
+                var queryStringAddAddressesPhones = "";
+                foreach (string phoneNumber in client.PhoneNumbers)
+                {
+                    queryStringAddAddressesPhones += $"INSERT INTO dbo.Phones (Number,Fk_Client_Id) VALUES ({phoneNumber},{clientsId});";
+                }
+
+                foreach (string address in client.Addresses)
+                {
+                    queryStringAddAddressesPhones += $"INSERT INTO dbo.Addresses (Address,Fk_Client_Id) VALUES ({address},{clientsId});";
+                }
+                var command2 = new SqlCommand(queryStringAddAddressesPhones, connection);
+                command2.ExecuteNonQuery();
             }
         }
     }
