@@ -98,12 +98,12 @@ namespace Tourism.DAL
                 var queryStringAddAddressesPhones = "";
                 foreach (string phoneNumber in client.PhoneNumbers)
                 {
-                    queryStringAddAddressesPhones += $"INSERT INTO dbo.Phones (Number,Fk_Client_Id) VALUES ({phoneNumber},{clientsId});";
+                    queryStringAddAddressesPhones += $"INSERT INTO dbo.Phones (Number,Fk_Client_Id) VALUES ('{phoneNumber}',{clientsId});\n";
                 }
 
                 foreach (string address in client.Addresses)
                 {
-                    queryStringAddAddressesPhones += $"INSERT INTO dbo.Addresses (Address,Fk_Client_Id) VALUES ({address},{clientsId});";
+                    queryStringAddAddressesPhones += $"INSERT INTO dbo.Addresses (Address,Fk_Client_Id) VALUES ('{address}',{clientsId});\n";
                 }
                 var command2 = new SqlCommand(queryStringAddAddressesPhones, connection);
                 command2.ExecuteNonQuery();
