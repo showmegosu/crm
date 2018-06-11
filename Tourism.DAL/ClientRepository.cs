@@ -79,7 +79,7 @@ namespace Tourism.DAL
         }
 
 
-        public void InsertClient(Client client)
+        public int InsertClient(Client client)
         {
             var queryString =
                 "INSERT INTO dbo.Clients (Surname,Name,Fathers_name) output INSERTED.Client_Id VALUES (@Surname,@Name,@FathersName);" +
@@ -107,6 +107,7 @@ namespace Tourism.DAL
                 }
                 var command2 = new SqlCommand(queryStringAddAddressesPhones, connection);
                 command2.ExecuteNonQuery();
+                return clientsId;
             }
         }
     }
