@@ -1,16 +1,24 @@
-﻿using Xunit;
+﻿using System.Configuration;
+using Xunit;
 
 namespace Tourism.DAL.Test
 {
     public class ClientRepositoryTests
     {
+        private readonly ClientRepository _clientRepository;
+
+        public ClientRepositoryTests()
+        {
+            var connectionString = ConfigurationManager.ConnectionStrings["Test"].ConnectionString;
+            _clientRepository = new ClientRepository(connectionString);
+        }
+
+
         [Fact]
         public void InsertClient_ValidClientProvided_IdReturned()
         {
             // Arrange
-            var clientRepository = new ClientRepository("Data Source=.;Initial Catalog=CRM;Integrated Security=True;Connect Timeout=15;Encrypt=False;" +
-                                                        "TrustServerCertificate = True; ApplicationIntent = ReadWrite; MultiSubnetFailover = False");
-            var client = new Client()
+           var client = new Client()
             {
                 Surname = "Boreyko",
                 Name = "Eugenia",
@@ -22,7 +30,7 @@ namespace Tourism.DAL.Test
             client.PhoneNumbers.Add("555555");
 
             // Act
-            var id = clientRepository.InsertClient(client);
+            var id = _clientRepository.InsertClient(client);
 
             // Assert
             Assert.NotEqual(0,id);
