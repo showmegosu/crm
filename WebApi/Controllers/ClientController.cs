@@ -34,8 +34,9 @@ namespace WebApi.Controllers
         }
 
         // PUT: api/Client/5
-        public void Put(int id, [FromBody]string value)
+        public void Put(int id, [FromBody]Client client)
         {
+            _clientRepository.Update(client);
         }
 
         // DELETE: api/Client/5
