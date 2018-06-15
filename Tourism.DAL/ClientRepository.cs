@@ -115,9 +115,8 @@ namespace Tourism.DAL
         {
             var queryString =
                 "UPDATE dbo.Clients " +
-                "SET (Surname,Name,Fathers_name) " +
-                "WHERE Client_Id=@id " +
-                "VALUES (@Surname,@Name,@FathersName);\n" +
+                "SET Surname=@Surname, Name=@Name, Fathers_name=@FathersName " +
+                "WHERE Client_Id=@id;\n" +
                 "DELETE FROM dbo.Phones " +
                 "WHERE Fk_Client_Id=@id; " +
                 "DELETE FROM dbo.Addresses " +
