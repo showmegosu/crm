@@ -39,7 +39,7 @@ namespace Tourism.DAL
 
         public Client GetClientById(int id)
         {
-            var queryString = "SELECT Surname, Name, Fathers_name from dbo.Clients WHERE Client_Id=@id;" +
+            var queryString = "SELECT Client_Id, Surname, Name, Fathers_name from dbo.Clients WHERE Client_Id=@id;" +
                               "SELECT Number from dbo.Phones WHERE Fk_Client_Id=@id;" +
                               "SELECT Address from dbo.Addresses WHERE Fk_Client_Id=@id";
 
@@ -53,9 +53,10 @@ namespace Tourism.DAL
                 var client = new Client();
                 while (reader.Read())
                 {
-                    client.Surname = reader[0].ToString();
-                    client.Name = reader[1].ToString();
-                    client.FathersName = reader[2].ToString();
+                    client.Id = (int)reader[0];
+                    client.Surname = reader[1].ToString();
+                    client.Name = reader[2].ToString();
+                    client.FathersName = reader[3].ToString();
                 }
 
                 if (reader.NextResult())
