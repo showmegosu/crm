@@ -152,6 +152,7 @@ namespace Tourism.DAL
 
         public void Delete(int id)
         {
+            if (id <= 0) throw new NotImplementedException();
             var queryString =
                 "DELETE FROM dbo.Addresses " +
                 "WHERE Fk_Client_Id=@Id \n" +
@@ -166,7 +167,15 @@ namespace Tourism.DAL
                 command.Parameters.AddWithValue("@Id", id);
 
                 connection.Open();
-                command.ExecuteNonQuery();
+                try
+                {
+                    command.ExecuteNonQuery();
+                }
+
+                catch (SqlException e)
+                {
+                    throw new NotImplementedException();
+                }
             }
         }
     }
