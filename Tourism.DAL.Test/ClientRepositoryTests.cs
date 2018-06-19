@@ -34,6 +34,9 @@ namespace Tourism.DAL.Test
 
             // Assert
             Assert.NotEqual(0,id);
+
+            // Clean up
+            _clientRepository.Delete(id);
         }
 
         [Fact]
@@ -73,6 +76,9 @@ namespace Tourism.DAL.Test
             Assert.Equal(updatedClient.Surname, actualUpdatedClient.Surname);
             Assert.Equal(updatedClient.Name, actualUpdatedClient.Name);
             Assert.Equal(updatedClient.FathersName, actualUpdatedClient.FathersName);
+
+            // Clean up
+            _clientRepository.Delete(id);
 
         }
     }
