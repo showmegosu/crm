@@ -18,7 +18,7 @@ namespace Tourism.DAL.Test
         public void InsertClient_ValidClientProvided_IdReturned()
         {
             // Arrange
-           var client = new Client()
+            var client = new Client()
             {
                 Surname = "Boreyko",
                 Name = "Eugenia",
@@ -33,7 +33,7 @@ namespace Tourism.DAL.Test
             var id = _clientRepository.InsertClient(client);
 
             // Assert
-            Assert.NotEqual(0,id);
+            Assert.NotEqual(0, id);
 
             // Clean up
             _clientRepository.Delete(id);
@@ -66,20 +66,26 @@ namespace Tourism.DAL.Test
             // Act
             var id = _clientRepository.InsertClient(client);
             updatedClient.Id = id;
-            _clientRepository.Update(updatedClient);
-            var actualUpdatedClient = _clientRepository.GetClientById(id);
 
-            // Assert
-            Assert.Equal(id, actualUpdatedClient.Id);
-            Assert.Single(actualUpdatedClient.Addresses);
-            Assert.Single(actualUpdatedClient.PhoneNumbers);
-            Assert.Equal(updatedClient.Surname, actualUpdatedClient.Surname);
-            Assert.Equal(updatedClient.Name, actualUpdatedClient.Name);
-            Assert.Equal(updatedClient.FathersName, actualUpdatedClient.FathersName);
+            try
+            {
+                _clientRepository.Update(updatedClient);
+                var actualUpdatedClient = _clientRepository.GetClientById(id);
 
-            // Clean up
-            _clientRepository.Delete(id);
+                // Assert
+                Assert.Equal(id, actualUpdatedClient.Id);
+                Assert.Single(actualUpdatedClient.Addresses);
+                Assert.Single(actualUpdatedClient.PhoneNumbers);
+                Assert.Equal(updatedClient.Surname, actualUpdatedClient.Surname);
+                Assert.Equal(updatedClient.Name, actualUpdatedClient.Name);
+                Assert.Equal(updatedClient.FathersName, actualUpdatedClient.FathersName);
+            }
 
+            finally
+            {
+                // Clean up
+                _clientRepository.Delete(id);
+            }
         }
     }
 }
