@@ -167,15 +167,7 @@ namespace Tourism.DAL
                 command.Parameters.AddWithValue("@Id", id);
 
                 connection.Open();
-                try
-                {
-                    command.ExecuteNonQuery();
-                }
-
-                catch (SqlException e)
-                {
-                    throw new NotImplementedException();
-                }
+                command.ExecuteNonQuery();
             }
         }
     }
