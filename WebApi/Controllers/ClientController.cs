@@ -42,6 +42,7 @@ namespace WebApi.Controllers
         // DELETE: api/Client/5
         public void Delete(int id)
         {
+            _clientRepository.Delete(id);
         }
     }
 }

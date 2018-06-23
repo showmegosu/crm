@@ -53,7 +53,7 @@ namespace Tourism.DAL
                 var client = new Client();
                 while (reader.Read())
                 {
-                    client.Id = (int)reader[0];
+                    client.Id = (int) reader[0];
                     client.Surname = reader[1].ToString();
                     client.Name = reader[2].ToString();
                     client.FathersName = reader[3].ToString();
@@ -95,17 +95,20 @@ namespace Tourism.DAL
                 command.Parameters.Add("@Client_Id", SqlDbType.Int).Direction = ParameterDirection.Output;
 
                 connection.Open();
-                var clientsId = (int)command.ExecuteScalar();
+                var clientsId = (int) command.ExecuteScalar();
                 var queryStringAddAddressesPhones = "";
                 foreach (var phoneNumber in client.PhoneNumbers)
                 {
-                    queryStringAddAddressesPhones += $"INSERT INTO dbo.Phones (Number,Fk_Client_Id) VALUES ('{phoneNumber}',{clientsId});\n";
+                    queryStringAddAddressesPhones +=
+                        $"INSERT INTO dbo.Phones (Number,Fk_Client_Id) VALUES ('{phoneNumber}',{clientsId});\n";
                 }
 
                 foreach (var address in client.Addresses)
                 {
-                    queryStringAddAddressesPhones += $"INSERT INTO dbo.Addresses (Address,Fk_Client_Id) VALUES ('{address}',{clientsId});\n";
+                    queryStringAddAddressesPhones +=
+                        $"INSERT INTO dbo.Addresses (Address,Fk_Client_Id) VALUES ('{address}',{clientsId});\n";
                 }
+
                 var command2 = new SqlCommand(queryStringAddAddressesPhones, connection);
                 command2.ExecuteNonQuery();
                 return clientsId;
@@ -117,11 +120,11 @@ namespace Tourism.DAL
             var queryString =
                 "UPDATE dbo.Clients " +
                 "SET Surname=@Surname, Name=@Name, Fathers_name=@FathersName " +
-                "WHERE Client_Id=@id;\n" +
+                "WHERE Client_Id=@Id;\n" +
                 "DELETE FROM dbo.Phones " +
-                "WHERE Fk_Client_Id=@id; " +
+                "WHERE Fk_Client_Id=@Id; " +
                 "DELETE FROM dbo.Addresses " +
-                "WHERE Fk_Client_Id=@id;\n";
+                "WHERE Fk_Client_Id=@Id;";
             foreach (var phoneNumber in client.PhoneNumbers)
             {
                 queryString +=
@@ -145,9 +148,27 @@ namespace Tourism.DAL
                 connection.Open();
                 command.ExecuteNonQuery();
             }
+        }
 
+        public void Delete(int id)
+        {
+            if (id <= 0) throw new NotImplementedException();
+            var queryString =
+                "DELETE FROM dbo.Addresses " +
+                "WHERE Fk_Client_Id=@Id \n" +
+                "DELETE FROM dbo.Phones " +
+                "WHERE Fk_Client_Id=@Id \n" +
+                "DELETE FROM dbo.Clients " +
+                "WHERE Client_Id=@Id;";
 
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                var command = new SqlCommand(queryString, connection);
+                command.Parameters.AddWithValue("@Id", id);
 
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
         }
     }
 }
