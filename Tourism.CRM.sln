@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tourism.DAL", "Tourism.DAL\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tourism.DAL.Test", "Tourism.DAL.Test\Tourism.DAL.Test.csproj", "{14DAB388-2C02-46DC-8951-323016C62342}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logger", "Logger\Logger.csproj", "{3A897B3D-B909-4C80-BA87-4F9E5DD66DFE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{14DAB388-2C02-46DC-8951-323016C62342}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{14DAB388-2C02-46DC-8951-323016C62342}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{14DAB388-2C02-46DC-8951-323016C62342}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A897B3D-B909-4C80-BA87-4F9E5DD66DFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A897B3D-B909-4C80-BA87-4F9E5DD66DFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A897B3D-B909-4C80-BA87-4F9E5DD66DFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A897B3D-B909-4C80-BA87-4F9E5DD66DFE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
