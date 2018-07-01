@@ -7,19 +7,17 @@ namespace Logger
     {
         private readonly string _logPath;
 
-        private Logger(string logPath)
+        public Logger(string logPath)
         {
             _logPath = logPath;
         }
 
-        public static Logger Instance(string logPath) => new Logger(logPath);
-
-        public void LogException(string exceptionMessage)
+        public void LogException(Exception exception)
         {
             using (StreamWriter writer =
                 new StreamWriter(_logPath + "Log" + DateTime.Now.ToString("YYYYMMDD") + ".txt", true))
             {
-                writer.WriteLine(DateTime.Now.ToString("HH:MM:SS" + " [Exception] " + exceptionMessage));
+                writer.WriteLine(DateTime.Now.ToString("HH:MM:SS" + " [Exception] " + exception));
             }
         }
 
