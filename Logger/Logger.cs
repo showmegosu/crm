@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Text;
 
 namespace Logger
 {
@@ -10,32 +11,34 @@ namespace Logger
         public Logger(string logPath)
         {
             _logPath = logPath;
+            var directory = new DirectoryInfo(logPath);
+            
         }
 
         public void LogException(Exception exception)
         {
-            using (StreamWriter writer =
-                new StreamWriter(_logPath + "Log" + DateTime.Now.ToString("YYYYMMDD") + ".txt", true))
+            using (var writer =
+                new StreamWriter(_logPath + "Log" + DateTime.Now.ToString("yyyyMMdd") + ".txt", true))
             {
-                writer.WriteLine(DateTime.Now.ToString("HH:MM:SS" + " [Exception] " + exception));
+                writer.WriteLine(DateTime.Now.ToString("HH:MM:ss") + " [Exception] " + exception);
             }
         }
 
         public void LogWarning(string warningMessage)
         {
-            using (StreamWriter writer =
-                new StreamWriter(_logPath + "Log" + DateTime.Now.ToString("YYYYMMDD") + ".txt", true))
+            using (var writer =
+                new StreamWriter(_logPath + "Log" + DateTime.Now.ToString("yyyyMMdd") + ".txt", true))
             {
-                writer.WriteLine(DateTime.Now.ToString("HH:MM:SS" + " [Warning] " + warningMessage));
+                writer.WriteLine(DateTime.Now.ToString("HH:MM:ss") + " [Warning] " + warningMessage);
             }
         }
 
         public void LogInfo(string infoMessage)
         {
-            using (StreamWriter writer =
-                new StreamWriter(_logPath + "Log" + DateTime.Now.ToString("YYYYMMDD") + ".txt", true))
+            using (var writer =
+                new StreamWriter(_logPath + "Log" + DateTime.Now.ToString("yyyyMMdd") + ".txt", true))
             {
-                writer.WriteLine(DateTime.Now.ToString("HH:MM:SS" + " [Info] " + infoMessage));
+                writer.WriteLine(DateTime.Now.ToString("HH:MM:ss") + " [Info] " + infoMessage);
             }
         }
     }
