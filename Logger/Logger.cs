@@ -11,11 +11,6 @@ namespace Logger
         public Logger(string logPath)
         {
             _logPath = logPath;
-            var directory = new DirectoryInfo(logPath);
-            if (!directory.Exists)
-            {
-                directory.Create();
-            }
         }
 
         public void LogException(Exception exception)
