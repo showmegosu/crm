@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logger", "Logger\Logger.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoggerTets", "LoggerTets\LoggerTets.csproj", "{65C0B388-FF42-445B-9425-373B7A49C0E7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalExceptionHandling", "GlobalExceptionHandling\GlobalExceptionHandling.csproj", "{94FD7F0D-C73D-494F-AA86-E733A26A4838}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{65C0B388-FF42-445B-9425-373B7A49C0E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{65C0B388-FF42-445B-9425-373B7A49C0E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{65C0B388-FF42-445B-9425-373B7A49C0E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94FD7F0D-C73D-494F-AA86-E733A26A4838}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94FD7F0D-C73D-494F-AA86-E733A26A4838}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94FD7F0D-C73D-494F-AA86-E733A26A4838}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94FD7F0D-C73D-494F-AA86-E733A26A4838}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
