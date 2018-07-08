@@ -1,10 +1,11 @@
 ﻿using System;
 using System.IO;
 using System.Text;
+using System.Web.Http.ExceptionHandling;
 
 namespace Logger
 {
-    public sealed class Logger
+    public sealed class Logger : ExceptionLogger
     {
         private readonly string _logPath;
 
@@ -13,8 +14,9 @@ namespace Logger
             _logPath = logPath;
         }
 
-        public void LogException(Exception exception)
+        public override void Log(ExceptionLoggerContext context)
         {
+            var exception = context.Exception;
             using (var writer =
                 new StreamWriter(_logPath + "Log" + DateTime.Now.ToString("yyyyMMdd") + ".txt", true))
             {
