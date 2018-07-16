@@ -2,17 +2,18 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using Logger;
 
 namespace Tourism.DAL
 {
-    public class ClientRepository
+    public class ClientRepository : IRepository
     {
         private readonly string _connectionString;
+        private readonly ILogger _logger;
 
         public ClientRepository(string connectionString)
         {
-            if (connectionString == null) throw new ArgumentNullException(nameof(connectionString));
-            _connectionString = connectionString;
+            _connectionString = connectionString ?? throw new ArgumentNullException(nameof(connectionString));
         }
 
         public List<ClientDto> GetAllClients()

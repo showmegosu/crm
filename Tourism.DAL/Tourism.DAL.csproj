@@ -43,7 +43,14 @@
     <Compile Include="Client.cs" />
     <Compile Include="ClientDto.cs" />
     <Compile Include="ClientRepository.cs" />
+    <Compile Include="IRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Logger\Logger.csproj">
+      <Project>{3A897B3D-B909-4C80-BA87-4F9E5DD66DFE}</Project>
+      <Name>Logger</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

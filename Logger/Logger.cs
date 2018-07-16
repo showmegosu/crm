@@ -1,11 +1,10 @@
 ﻿using System;
 using System.IO;
-using System.Text;
 using System.Web.Http.ExceptionHandling;
 
 namespace Logger
 {
-    public sealed class Logger : ExceptionLogger
+    public sealed class Logger : ExceptionLogger, ILogger
     {
         private readonly string _logPath;
 
