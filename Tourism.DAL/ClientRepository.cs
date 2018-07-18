@@ -14,6 +14,7 @@ namespace Tourism.DAL
         public ClientRepository(string connectionString)
         {
             _connectionString = connectionString ?? throw new ArgumentNullException(nameof(connectionString));
+            _logger = new Logger.Logger(ConfigurationManager.ConnectionStrings["LogFolder"].ConnectionString);
         }
 
         public List<ClientDto> GetAllClients()

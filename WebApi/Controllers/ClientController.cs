@@ -2,6 +2,7 @@
 using System.Configuration;
 using System.Web.Http;
 using Logger;
+using StructureMap;
 using Tourism.DAL;
 
 namespace WebApi.Controllers
@@ -11,11 +12,12 @@ namespace WebApi.Controllers
         private readonly IRepository _clientRepository;
         private readonly ILogger _logger;
 
-        public ClientController()
+        public ClientController(ILogger logger, IRepository repository)
         {
             var connectionString = ConfigurationManager.ConnectionStrings["ClientRepository"].ConnectionString;
-            _clientRepository = new ClientRepository(connectionString);
-            _logger = new Logger.Logger(ConfigurationManager.ConnectionStrings["LogFolder"].ConnectionString);
+            _clientRepository = repository;
+//            _logger = new Logger.Logger(ConfigurationManager.ConnectionStrings["LogFolder"].ConnectionString);
+            _logger = Container.For<Logger.Logger>();
         }
 
         // GET: api/v1/Client
