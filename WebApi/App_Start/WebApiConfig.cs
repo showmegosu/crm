@@ -4,6 +4,7 @@ using System.Web.Http.ExceptionHandling;
 using Logger;
 using Tourism.DAL;
 using Unity;
+using Unity.Injection;
 using Unity.Lifetime;
 
 namespace WebApi
@@ -14,8 +15,16 @@ namespace WebApi
         {
             // Web API configuration and services
             var container = new UnityContainer();
-            container.RegisterType<IRepository, ClientRepository>(new HierarchicalLifetimeManager());
-            container.RegisterType<ILogger, Logger.Logger>(new HierarchicalLifetimeManager());
+
+            // Register Logger type
+            container.RegisterType<ILogger, Logger.Logger>(
+                new InjectionConstructor(ConfigurationManager.ConnectionStrings["LogFolder"].ConnectionString));
+
+            // Register Repository type
+            container.RegisterType<IRepository, ClientRepository>(new InjectionConstructor(
+                ConfigurationManager.ConnectionStrings["ClientRepository"].ConnectionString,
+                container.Resolve<ILogger>()));
+
             config.DependencyResolver = new UnityResolver(container);
 
             config.Services.Replace(typeof(IExceptionHandler), new GlobalExceptionHandler());
@@ -28,7 +37,7 @@ namespace WebApi
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/v1/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
+                defaults: new {id = RouteParameter.Optional}
             );
         }
     }

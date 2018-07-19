@@ -7,10 +7,9 @@ namespace Tourism.DAL.Test
     {
         private readonly IRepository _clientRepository;
 
-        public ClientRepositoryTests()
+        public ClientRepositoryTests(IRepository repository)
         {
-            var connectionString = ConfigurationManager.ConnectionStrings["Test"].ConnectionString;
-            _clientRepository = new ClientRepository(connectionString);
+            _clientRepository = repository;
         }
 
 

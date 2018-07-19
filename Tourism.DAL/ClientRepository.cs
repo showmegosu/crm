@@ -11,10 +11,10 @@ namespace Tourism.DAL
         private readonly string _connectionString;
         private readonly ILogger _logger;
 
-        public ClientRepository(string connectionString)
+        public ClientRepository(string connectionString, ILogger logger)
         {
-            _connectionString = connectionString ?? throw new ArgumentNullException(nameof(connectionString));
-            _logger = new Logger.Logger(ConfigurationManager.ConnectionStrings["LogFolder"].ConnectionString);
+            _connectionString = connectionString;
+            _logger = logger;
         }
 
         public List<ClientDto> GetAllClients()
@@ -80,7 +80,6 @@ namespace Tourism.DAL
                 return client;
             }
         }
-
 
         public int InsertClient(Client client)
         {
