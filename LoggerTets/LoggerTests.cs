@@ -1,11 +1,12 @@
 ﻿using System.Configuration;
+using Logger;
 using Xunit;
 
 namespace LoggerTets
 {
     public class LoggerTests
     {
-        private readonly Logger.Logger _logger;
+        private readonly ILogger _logger;
 
         public LoggerTests()
         {

@@ -2,17 +2,19 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using Logger;
 
 namespace Tourism.DAL
 {
-    public class ClientRepository
+    public class ClientRepository : IRepository
     {
         private readonly string _connectionString;
+        private readonly ILogger _logger;
 
-        public ClientRepository(string connectionString)
+        public ClientRepository(string connectionString, ILogger logger)
         {
-            if (connectionString == null) throw new ArgumentNullException(nameof(connectionString));
             _connectionString = connectionString;
+            _logger = logger;
         }
 
         public List<ClientDto> GetAllClients()
@@ -78,7 +80,6 @@ namespace Tourism.DAL
                 return client;
             }
         }
-
 
         public int InsertClient(Client client)
         {
