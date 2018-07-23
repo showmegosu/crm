@@ -1,14 +1,14 @@
 USE [CRM]
 GO
 
-/****** Object:  Table [dbo].[ManagerPhone]    Script Date: 7/24/2018 12:04:33 AM ******/
+/****** Object:  Table [dbo].[ManagerPhones]    Script Date: 7/24/2018 12:26:35 AM ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE TABLE [dbo].[ManagerPhone](
+CREATE TABLE [dbo].[ManagerPhones](
 	[Phone_Id] [int] IDENTITY(1,1) NOT NULL,
 	[Number] [nvarchar](50) NOT NULL,
 	[Fk_Manager_Id] [int] NOT NULL,
@@ -19,11 +19,11 @@ CREATE TABLE [dbo].[ManagerPhone](
 ) ON [PRIMARY]
 GO
 
-ALTER TABLE [dbo].[ManagerPhone]  WITH NOCHECK ADD  CONSTRAINT [FK_ManagerPhone_Managers] FOREIGN KEY([Fk_Manager_Id])
+ALTER TABLE [dbo].[ManagerPhones]  WITH NOCHECK ADD  CONSTRAINT [FK_ManagerPhone_Managers] FOREIGN KEY([Fk_Manager_Id])
 REFERENCES [dbo].[Managers] ([Manager_Id])
 GO
 
-ALTER TABLE [dbo].[ManagerPhone] CHECK CONSTRAINT [FK_ManagerPhone_Managers]
+ALTER TABLE [dbo].[ManagerPhones] CHECK CONSTRAINT [FK_ManagerPhone_Managers]
 GO
 
 
