@@ -21,7 +21,7 @@ namespace WebApi
                 new InjectionConstructor(ConfigurationManager.ConnectionStrings["LogFolder"].ConnectionString));
 
             // Register Repository type
-            container.RegisterType<IRepository, ClientRepository>(new InjectionConstructor(
+            container.RegisterType<IClientRepository, ClientRepository>(new InjectionConstructor(
                 ConfigurationManager.ConnectionStrings["ClientRepository"].ConnectionString,
                 container.Resolve<ILogger>()));
 

@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Tourism.DAL
 {
-    public interface IRepository
+    public interface IManagerRepository
     {
-        List<ClientDto> GetAllClients();
-        Client GetClientById(int id);
-        int InsertClient(Client client);
+        List<ClientDto> GetAllManagers();
+        Client GetManagerById(int id);
+        int InsertManager(Client client);
         void Update(Client client);
         void Delete(int id);
     }

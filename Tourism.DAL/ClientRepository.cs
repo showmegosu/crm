@@ -6,7 +6,7 @@ using Logger;
 
 namespace Tourism.DAL
 {
-    public class ClientRepository : IRepository
+    public class ClientRepository : IClientRepository
     {
         private readonly string _connectionString;
         private readonly ILogger _logger;
