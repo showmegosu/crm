@@ -43,9 +43,11 @@ namespace Tourism.DAL
 
         public Manager GetManagerById(int id)
         {
-            var queryString = "SELECT Manager_Id, Surname, Name, Fathers_name, Email, Skype, Access_lvl, DoB, Joined, Base_salary,  from dbo.Managers WHERE Manager_Id=@id;" +
-                              "SELECT Number from dbo.Phones WHERE Fk_Client_Id=@id;" +
-                              "SELECT Address from dbo.Addresses WHERE Fk_Client_Id=@id";
+            var queryString = "SELECT Manager_Id, Surname, Name, Fathers_name, Email, Skype, Address, dbo.Companies.Name, dbo.Offices.Name, DoB, Joined, Base_salary" +
+                              "FROM dbo.Managers WHERE Manager_Id=@id;" +
+                              "INNER JOIN dbo.Companies ON dbo.Managers.Fk_Company_Id=dbo.Companies.Company_Id;"+       // Fk to Company.Name
+                              "INNER JOIN dbo.Offices ON dbo.Managers.Fk_Office_Id=dbo.Offices.Office_Id;"+             // Fk to Office.Name
+                              "SELECT Number from dbo.ManagerPhones WHERE Fk_Manager_Id=@id";                           // Selecting phones from ManagerPhones
 
             using (var connection = new SqlConnection(_connectionString))
             {

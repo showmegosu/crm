@@ -12,6 +12,7 @@ namespace Tourism.DAL
         public string Surname { get; set; }
         public string Name { get; set; }
         public string FathersName { get; set; }
+        public List<string> PhoneNumbers { get; set; }
         public string Email { get; set; }
         public string Skype { get; set; }
         public Company Company { get; set; }
