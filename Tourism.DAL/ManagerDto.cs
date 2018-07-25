@@ -1,15 +1,15 @@
 ﻿namespace Tourism.DAL
 {
-    public class ClientDto
+    public class ManagerDto
     {
         public int Id { get; set; }
         public string Surname { get; set; }
 
-        public ClientDto()
+        public ManagerDto()
         {
         }
 
-        public ClientDto(int id, string surname)
+        public ManagerDto(int id, string surname)
         {
             Id = id;
             Surname = surname;

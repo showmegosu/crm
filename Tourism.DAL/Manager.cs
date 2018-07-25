@@ -14,6 +14,11 @@ namespace Tourism.DAL
         public string FathersName { get; set; }
         public string Email { get; set; }
         public string Skype { get; set; }
-        public string Company { get; set; }
+        public Company Company { get; set; }
+        public Office Office { get; set; }
+        public string Address { get; set; }
+        public DateTime DateOfBirth { get; set; }
+        public DateTime JoiningDate { get; set; }
+        public int BaseSalary { get; set; }
     }
 }

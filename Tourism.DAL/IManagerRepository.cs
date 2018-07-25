@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Tourism.DAL
 {
     public interface IManagerRepository
     {
-        List<ClientDto> GetAllManagers();
-        Client GetManagerById(int id);
-        int InsertManager(Client client);
-        void Update(Client client);
+        List<ManagerDto> GetAllManagers();
+        Manager GetManagerById(int id);
+        int InsertManager(Manager manager);
+        void Update(Manager manager);
         void Delete(int id);
     }
 }
