@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Logger;
 
 namespace Tourism.DAL
@@ -43,11 +40,14 @@ namespace Tourism.DAL
 
         public Manager GetManagerById(int id)
         {
-            var queryString = "SELECT Manager_Id, Surname, Name, Fathers_name, Email, Skype, Address, dbo.Companies.Name, dbo.Offices.Name, DoB, Joined, Base_salary" +
-                              "FROM dbo.Managers WHERE Manager_Id=@id;" +
-                              "INNER JOIN dbo.Companies ON dbo.Managers.Fk_Company_Id=dbo.Companies.Company_Id;"+       // Fk to Company.Name
-                              "INNER JOIN dbo.Offices ON dbo.Managers.Fk_Office_Id=dbo.Offices.Office_Id;"+             // Fk to Office.Name
-                              "SELECT Number from dbo.ManagerPhones WHERE Fk_Manager_Id=@id";                           // Selecting phones from ManagerPhones
+            var queryString =
+                "SELECT Manager_Id, Surname, dbo.Managers.Name, Fathers_name, Email, Skype, dbo.Managers.Address, " +
+                "dbo.Companies.Name as Company, dbo.Offices.Name as Office, DoB, Joined, Base_salary " +
+                "FROM dbo.Managers " +
+                "INNER JOIN dbo.Companies ON dbo.Managers.Fk_Company_Id=dbo.Companies.Company_Id " + // Fk to Company.Name
+                "INNER JOIN dbo.Offices ON dbo.Managers.Fk_Office_Id=dbo.Offices.Office_Id " + // Fk to Office.Name
+                "WHERE Manager_Id=@id " +
+                "SELECT Number from dbo.ManagerPhones WHERE Fk_Manager_Id=@id"; // Selecting phones from ManagerPhones
 
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -63,6 +63,14 @@ namespace Tourism.DAL
                     manager.Surname = reader[1].ToString();
                     manager.Name = reader[2].ToString();
                     manager.FathersName = reader[3].ToString();
+                    manager.Email = reader[4].ToString();
+                    manager.Skype = reader[5].ToString();
+                    manager.Address = reader[6].ToString();
+                    manager.Company = reader[7].ToString();
+                    manager.Office = reader[8].ToString();
+                    manager.DateOfBirth = reader[9].ToString();
+                    manager.JoiningDate = reader[10].ToString();
+                    manager.BaseSalary = (int) reader[11];
                 }
 
                 if (reader.NextResult())
@@ -70,14 +78,6 @@ namespace Tourism.DAL
                     while (reader.Read())
                     {
                         manager.PhoneNumbers.Add(reader[0].ToString());
-                    }
-                }
-
-                if (reader.NextResult())
-                {
-                    while (reader.Read())
-                    {
-                        manager.Addresses.Add(reader[0].ToString());
                     }
                 }
 
@@ -100,3 +100,4 @@ namespace Tourism.DAL
             throw new NotImplementedException();
         }
     }
+}

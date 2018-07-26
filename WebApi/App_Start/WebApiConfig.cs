@@ -5,7 +5,6 @@ using Logger;
 using Tourism.DAL;
 using Unity;
 using Unity.Injection;
-using Unity.Lifetime;
 
 namespace WebApi
 {
@@ -22,7 +21,10 @@ namespace WebApi
 
             // Register Repository type
             container.RegisterType<IClientRepository, ClientRepository>(new InjectionConstructor(
-                ConfigurationManager.ConnectionStrings["ClientRepository"].ConnectionString,
+                ConfigurationManager.ConnectionStrings["CrmRepository"].ConnectionString,
+                container.Resolve<ILogger>()));
+            container.RegisterType<IManagerRepository, ManagerRepository>(new InjectionConstructor(
+                ConfigurationManager.ConnectionStrings["CrmRepository"].ConnectionString,
                 container.Resolve<ILogger>()));
 
             config.DependencyResolver = new UnityResolver(container);
