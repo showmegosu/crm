@@ -38,7 +38,7 @@ namespace Tourism.DAL
             return managersList;
         }
 
-        public Manager GetManagerById(int id)
+        public ManagerDto GetManagerById(int id)
         {
             var queryString =
                 "SELECT Manager_Id, Surname, dbo.Managers.Name, Fathers_name, Email, Skype, dbo.Managers.Address, " +
@@ -56,7 +56,7 @@ namespace Tourism.DAL
 
                 connection.Open();
                 var reader = command.ExecuteReader();
-                var manager = new Manager();
+                var manager = new ManagerDto();
                 while (reader.Read())
                 {
                     manager.Id = (int) reader[0];

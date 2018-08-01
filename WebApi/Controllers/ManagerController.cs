@@ -24,7 +24,7 @@ namespace WebApi.Controllers
         }
 
         // GET: api/Manager/5
-        public Manager Get(int id)
+        public ManagerDto Get(int id)
         {
             _logger.LogInfo("Get manager by Id=" + id + " request was sent.");
             return _managerRepository.GetManagerById(id);
