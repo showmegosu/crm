@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using Logger;
 
@@ -87,7 +88,40 @@ namespace Tourism.DAL
 
         public int InsertManager(Manager manager)
         {
-            throw new NotImplementedException();
+            var queryString =
+                "INSERT INTO dbo.Managers (Surname,Name,Fathers_name,Email,Skype,Address,Fk_Company_Id,Fk_Office_Id,DoB,Joined,Base_salary) " +
+                "output INSERTED.Manager_Id VALUES (@Surname,@Name,@FathersName,@Email,@Skype,@Address,@Company,@Office,@DateOfBirth,@JoiningDate,@BaseSalary);" +
+                "SELECT @Manager_Id = SCOPE_IDENTITY()";
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                var command = new SqlCommand(queryString, connection);
+                command.Parameters.AddWithValue("@Surname", manager.Surname);
+                command.Parameters.AddWithValue("@Name", manager.Name);
+                command.Parameters.AddWithValue("@FathersName", manager.FathersName);
+                command.Parameters.AddWithValue("@Email", manager.Email);
+                command.Parameters.AddWithValue("@Skype", manager.Skype);
+                command.Parameters.AddWithValue("@Address", manager.Address);
+                command.Parameters.AddWithValue("@Company", manager.Company);
+                command.Parameters.AddWithValue("@Office", manager.Office);
+                command.Parameters.Add("@DateOfBirth", SqlDbType.Date).Value=manager.DateOfBirth.Date;
+                command.Parameters.Add("@JoiningDate", SqlDbType.Date).Value=manager.JoiningDate.Date;
+                command.Parameters.AddWithValue("@BaseSalary", manager.BaseSalary);
+                command.Parameters.Add("@Manager_Id", SqlDbType.Int).Direction = ParameterDirection.Output;
+
+                connection.Open();
+                var managerId = (int)command.ExecuteScalar();
+                var queryStringAddPhones = "";
+                foreach (var phoneNumber in manager.PhoneNumbers)
+                {
+                    queryStringAddPhones +=
+                        $"INSERT INTO dbo.ManagerPhones (Number,Fk_Manager_Id) VALUES ('{phoneNumber}',{managerId});\n";
+                }
+
+                var command2 = new SqlCommand(queryStringAddPhones, connection);
+                command2.ExecuteNonQuery();
+                return managerId;
+            }
         }
 
         public void Update(Manager manager)
