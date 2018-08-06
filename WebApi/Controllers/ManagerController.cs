@@ -29,5 +29,26 @@ namespace WebApi.Controllers
             _logger.LogInfo("Get manager by Id=" + id + " request was sent.");
             return _managerRepository.GetManagerById(id);
         }
+
+        // POST: api/v1/Manager
+        public void Post([FromBody] Manager manager)
+        {
+            _logger.LogInfo("Post manager=" + manager + " request was sent.");
+            _managerRepository.InsertManager(manager);
+        }
+
+        // PUT: api/Manager/5
+        public void Put(int id, [FromBody] Manager manager)
+        {
+            _logger.LogInfo("Update manager=" + manager + " request was sent.");
+            _managerRepository.Update(manager);
+        }
+
+        // DELETE: api/Manager/5
+        public void Delete(int id)
+        {
+            _logger.LogInfo("Delete manager by Id=" + id + " request was sent.");
+            _managerRepository.Delete(id);
+        }
     }
 }

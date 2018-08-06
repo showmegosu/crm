@@ -104,13 +104,13 @@ namespace Tourism.DAL
                 command.Parameters.AddWithValue("@Address", manager.Address);
                 command.Parameters.AddWithValue("@Company", manager.Company);
                 command.Parameters.AddWithValue("@Office", manager.Office);
-                command.Parameters.Add("@DateOfBirth", SqlDbType.Date).Value=manager.DateOfBirth.Date;
-                command.Parameters.Add("@JoiningDate", SqlDbType.Date).Value=manager.JoiningDate.Date;
+                command.Parameters.Add("@DateOfBirth", SqlDbType.Date).Value = manager.DateOfBirth.Date;
+                command.Parameters.Add("@JoiningDate", SqlDbType.Date).Value = manager.JoiningDate.Date;
                 command.Parameters.AddWithValue("@BaseSalary", manager.BaseSalary);
                 command.Parameters.Add("@Manager_Id", SqlDbType.Int).Direction = ParameterDirection.Output;
 
                 connection.Open();
-                var managerId = (int)command.ExecuteScalar();
+                var managerId = (int) command.ExecuteScalar();
                 var queryStringAddPhones = "";
                 foreach (var phoneNumber in manager.PhoneNumbers)
                 {
@@ -126,12 +126,57 @@ namespace Tourism.DAL
 
         public void Update(Manager manager)
         {
-            throw new NotImplementedException();
+            var queryString =
+                "UPDATE dbo.Managers " +
+                "SET Surname=@Surname, Name=@Name, Fathers_name=@FathersName, Email=@Email, Skype=@Skype, Address=@Address, Fk_Company_Id=@Company," +
+                "Fk_Office_Id=@Office, DoB=@DateOfBirth, Joined=@JoiningDate, Base_salary=@BaseSalary " +
+                "WHERE Manager_Id=@Id;\n" +
+                "DELETE FROM dbo.ManagerPhones " +
+                "WHERE Fk_Manager_Id=@Id;";
+            foreach (var phoneNumber in manager.PhoneNumbers)
+            {
+                queryString +=
+                    $"INSERT INTO dbo.ManagerPhones (Number, Fk_Manager_Id) VALUES ('{phoneNumber}',{manager.Id});\n";
+            }
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                var command = new SqlCommand(queryString, connection);
+                command.Parameters.AddWithValue("@Surname", manager.Surname);
+                command.Parameters.AddWithValue("@Name", manager.Name);
+                command.Parameters.AddWithValue("@FathersName", manager.FathersName);
+                command.Parameters.AddWithValue("@Email", manager.Email);
+                command.Parameters.AddWithValue("@Skype", manager.Skype);
+                command.Parameters.AddWithValue("@Address", manager.Address);
+                command.Parameters.AddWithValue("@Company", manager.Company);
+                command.Parameters.AddWithValue("@Office", manager.Office);
+                command.Parameters.AddWithValue("@DateOfBirth", manager.DateOfBirth);
+                command.Parameters.AddWithValue("@JoiningDate", manager.JoiningDate);
+                command.Parameters.AddWithValue("@BaseSalary", manager.BaseSalary);
+                command.Parameters.AddWithValue("@Id", manager.Id);
+
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
         }
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            if (id <= 0) throw new NotImplementedException();
+            var queryString =
+                "DELETE FROM dbo.ManagerPhones " +
+                "WHERE Fk_Manager_Id=@Id \n" +
+                "DELETE FROM dbo.Managers " +
+                "WHERE Manager_Id=@Id;";
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                var command = new SqlCommand(queryString, connection);
+                command.Parameters.AddWithValue("@Id", id);
+
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
         }
     }
 }
