@@ -1,7 +1,7 @@
 USE [CRM]
 GO
 
-/****** Object:  Table [dbo].[Clients]    Script Date: 4/17/2018 13:24:46 ******/
+/****** Object:  Table [dbo].[Clients]    Script Date: 8/10/2018 1:28:24 AM ******/
 SET ANSI_NULLS ON
 GO
 

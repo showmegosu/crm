@@ -1,7 +1,7 @@
 USE [CRM]
 GO
 
-/****** Object:  Table [dbo].[OfficePhones]    Script Date: 7/24/2018 12:27:06 AM ******/
+/****** Object:  Table [dbo].[OfficePhones]    Script Date: 8/10/2018 1:29:41 AM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -9,9 +9,9 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [dbo].[OfficePhones](
-	[Phone_Id] [int] NOT NULL,
+	[Phone_Id] [int] IDENTITY(1,1) NOT NULL,
 	[Phone] [nvarchar](50) NOT NULL,
-	[Fk_Office_Id] [int] IDENTITY(1,1) NOT NULL,
+	[Fk_Office_Id] [int] NOT NULL,
  CONSTRAINT [PK_OfficePhones] PRIMARY KEY CLUSTERED 
 (
 	[Phone_Id] ASC
