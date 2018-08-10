@@ -17,9 +17,9 @@ namespace Tourism.DAL
             _logger = logger;
         }
 
-        public List<ManagerDto> GetAllManagers()
+        public List<ManagerListDto> GetAllManagers()
         {
-            var managersList = new List<ManagerDto>();
+            var managersList = new List<ManagerListDto>();
 
             var queryString = "SELECT Manager_Id, Surname from dbo.Managers";
 
@@ -30,7 +30,7 @@ namespace Tourism.DAL
                 var reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    managersList.Add(new ManagerDto((int) reader[0], reader[1].ToString()));
+                    managersList.Add(new ManagerListDto((int) reader[0], reader[1].ToString()));
                 }
 
                 reader.Close();

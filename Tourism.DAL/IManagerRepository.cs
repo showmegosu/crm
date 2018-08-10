@@ -4,7 +4,7 @@ namespace Tourism.DAL
 {
     public interface IManagerRepository
     {
-        List<ManagerDto> GetAllManagers();
+        List<ManagerListDto> GetAllManagers();
         ManagerDto GetManagerById(int id);
         int InsertManager(Manager manager);
         void Update(Manager manager);

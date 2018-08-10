@@ -17,7 +17,7 @@ namespace WebApi.Controllers
         }
 
         // GET: api/v1/Manager
-        public List<ManagerDto> Get()
+        public List<ManagerListDto> Get()
         {
             _logger.LogInfo("GetAll request was sent.");
             return _managerRepository.GetAllManagers();
