@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Tourism.DAL
 {
-    public interface IRepository
+    public interface IClientRepository
     {
         List<ClientDto> GetAllClients();
         Client GetClientById(int id);

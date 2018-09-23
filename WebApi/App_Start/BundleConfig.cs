@@ -1,7 +1,6 @@
-﻿using System.Web;
-using System.Web.Optimization;
+﻿using System.Web.Optimization;
 
-namespace Tourism.DAL
+namespace WebApi
 {
     public class BundleConfig
     {

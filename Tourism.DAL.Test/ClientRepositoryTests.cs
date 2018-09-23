@@ -5,9 +5,9 @@ namespace Tourism.DAL.Test
 {
     public class ClientRepositoryTests
     {
-        private readonly IRepository _clientRepository;
+        private readonly IClientRepository _clientRepository;
 
-        public ClientRepositoryTests(IRepository repository)
+        public ClientRepositoryTests(IClientRepository repository)
         {
             _clientRepository = repository;
         }

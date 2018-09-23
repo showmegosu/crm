@@ -5,7 +5,6 @@ using Logger;
 using Tourism.DAL;
 using Unity;
 using Unity.Injection;
-using Unity.Lifetime;
 
 namespace WebApi
 {
@@ -21,8 +20,11 @@ namespace WebApi
                 new InjectionConstructor(ConfigurationManager.ConnectionStrings["LogFolder"].ConnectionString));
 
             // Register Repository type
-            container.RegisterType<IRepository, ClientRepository>(new InjectionConstructor(
-                ConfigurationManager.ConnectionStrings["ClientRepository"].ConnectionString,
+            container.RegisterType<IClientRepository, ClientRepository>(new InjectionConstructor(
+                ConfigurationManager.ConnectionStrings["CrmRepository"].ConnectionString,
+                container.Resolve<ILogger>()));
+            container.RegisterType<IManagerRepository, ManagerRepository>(new InjectionConstructor(
+                ConfigurationManager.ConnectionStrings["CrmRepository"].ConnectionString,
                 container.Resolve<ILogger>()));
 
             config.DependencyResolver = new UnityResolver(container);

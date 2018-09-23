@@ -2,6 +2,9 @@
 {
     public class ClientDto
     {
+        public int Id { get; set; }
+        public string Surname { get; set; }
+
         public ClientDto()
         {
         }
@@ -11,8 +14,5 @@
             Id = id;
             Surname = surname;
         }
-
-        public int Id { get; set; }
-        public string Surname { get; set; }
     }
 }

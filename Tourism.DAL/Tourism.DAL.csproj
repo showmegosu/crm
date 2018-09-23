@@ -43,7 +43,16 @@
     <Compile Include="Client.cs" />
     <Compile Include="ClientDto.cs" />
     <Compile Include="ClientRepository.cs" />
-    <Compile Include="IRepository.cs" />
+    <Compile Include="Company.cs" />
+    <Compile Include="IClientRepository.cs" />
+    <Compile Include="ICompanyRepository.cs" />
+    <Compile Include="IManagerRepository.cs" />
+    <Compile Include="IOfficeRepository.cs" />
+    <Compile Include="Manager.cs" />
+    <Compile Include="ManagerDto.cs" />
+    <Compile Include="ManagerListDto.cs" />
+    <Compile Include="ManagerRepository.cs" />
+    <Compile Include="Office.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

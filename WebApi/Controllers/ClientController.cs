@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Configuration;
 using System.Web.Http;
 using Logger;
 using Tourism.DAL;
@@ -8,10 +7,10 @@ namespace WebApi.Controllers
 {
     public class ClientController : ApiController
     {
-        private readonly IRepository _clientRepository;
+        private readonly IClientRepository _clientRepository;
         private readonly ILogger _logger;
 
-        public ClientController(ILogger logger, IRepository repository)
+        public ClientController(ILogger logger, IClientRepository repository)
         {
             _clientRepository = repository;
             _logger = logger;
